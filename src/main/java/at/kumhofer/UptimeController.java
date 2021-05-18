@@ -1,15 +1,14 @@
 package at.kumhofer;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 
 
 @Path("/api/uptime")
 
 public class UptimeController {
+
+    private static int counter=0;
 
     @GET
     @Path("/{percentage}")
@@ -25,4 +24,15 @@ public class UptimeController {
     public String calculateUptime(){
         return this.calculateUptime(99.95);
     }
+
+
+    @POST
+    @Path("/delta/{delta}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String SampleMethodWithDelta(@PathParam("delta") int delta){
+        counter = counter + delta;
+        System.out.println("Call to POST");
+        return "sample" + counter;
+    }
+
 }
